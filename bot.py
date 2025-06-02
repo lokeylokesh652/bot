@@ -14,7 +14,7 @@ TOKEN = "8180863106:AAEez-aHjZ6Q9ugAyjR3E2X9RKuP6GgofMg"
 DOMAIN = "king-viper-indo.shop"
 EMAIL_COUNT = 5
 FILE_PATH = "acc.txt"
-RENDER_URL = "https://YOUR-RENDER-URL.onrender.com/"
+RENDER_URL = "https://bot-3393.onrender.com"
 
 # ─── Flask Keep-alive Server ────────────────────────────────────────────────
 flask_app = Flask(__name__)
