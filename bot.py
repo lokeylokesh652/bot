@@ -1,25 +1,26 @@
 import random
 import string
 import os
+import threading
 from telegram import Update, InputFile
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from flask import Flask
-import threading
 
+# ─── Config ─────────────────────────────────────────────────────────────────
 TOKEN = "8180863106:AAEez-aHjZ6Q9ugAyjR3E2X9RKuP6GgofMg"
 DOMAIN = "king-viper-indo.shop"
 EMAIL_COUNT = 5
 FILE_PATH = "acc.txt"
 
 # ─── Flask Keep-alive Server ────────────────────────────────────────────────
-app = Flask('')
+web_app = Flask(__name__)
 
-@app.route('/')
+@web_app.route('/')
 def home():
-    return "Bot is alive!"
+    return "🤖 Bot is alive and running!", 200
 
 def run_flask():
-    app.run(host='0.0.0.0', port=8080)
+    web_app.run(host='0.0.0.0', port=8080)
 
 # ─── Email Generator ────────────────────────────────────────────────────────
 def generate_dot_emails(base):
@@ -83,11 +84,11 @@ async def download(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if __name__ == '__main__':
     threading.Thread(target=run_flask).start()
 
-    app = ApplicationBuilder().token(TOKEN).build()
+    bot_app = ApplicationBuilder().token(TOKEN).build()
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("generate", generate))
-    app.add_handler(CommandHandler("clear", clear))
-    app.add_handler(CommandHandler("download", download))
+    bot_app.add_handler(CommandHandler("start", start))
+    bot_app.add_handler(CommandHandler("generate", generate))
+    bot_app.add_handler(CommandHandler("clear", clear))
+    bot_app.add_handler(CommandHandler("download", download))
 
-    app.run_polling()
+    bot_app.run_polling()
