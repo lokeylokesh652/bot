@@ -12,7 +12,7 @@ from flask import Flask
 # ─── Config ─────────────────────────────────────────────────────────────────
 TOKEN = "8180863106:AAHc-QEb14_4wf6CfxNgwJIRQdlwotdjkGM"
 DOMAIN = "king-viper-indo.shop"
-EMAIL_COUNT = 5
+EMAIL_COUNT = 1
 FILE_PATH = "acc.txt"
 RENDER_URL = "https://bot-3393.onrender.com"
 
