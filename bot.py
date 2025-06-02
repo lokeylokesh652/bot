@@ -10,7 +10,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from flask import Flask
 
 # ─── Config ─────────────────────────────────────────────────────────────────
-TOKEN = "8180863106:AAEez-aHjZ6Q9ugAyjR3E2X9RKuP6GgofMg"
+TOKEN = "8180863106:AAFQ4C0tM40F8r1HjV-0a6tITVaCmq7d-Ss"
 DOMAIN = "king-viper-indo.shop"
 EMAIL_COUNT = 5
 FILE_PATH = "acc.txt"
