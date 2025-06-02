@@ -1,28 +1,28 @@
 import random
 import string
 import os
-import threading
 from telegram import Update, InputFile
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from flask import Flask
+import threading
 
-# ─── Config ─────────────────────────────────────────────────────────────────
+# Configuration
 TOKEN = "8180863106:AAEez-aHjZ6Q9ugAyjR3E2X9RKuP6GgofMg"
 DOMAIN = "king-viper-indo.shop"
 EMAIL_COUNT = 5
 FILE_PATH = "acc.txt"
 
-# ─── Flask Keep-alive Server ────────────────────────────────────────────────
-web_app = Flask(__name__)
+# ─── Flask Keep-alive Server ───────────────────────────────
+flask_app = Flask('')
 
-@web_app.route('/')
+@flask_app.route('/')
 def home():
-    return "🤖 Bot is alive and running!", 200
+    return "✅ Bot is alive!", 200
 
 def run_flask():
-    web_app.run(host='0.0.0.0', port=8080)
+    flask_app.run(host='0.0.0.0', port=8080)
 
-# ─── Email Generator ────────────────────────────────────────────────────────
+# ─── Email Generator ───────────────────────────────────────
 def generate_dot_emails(base):
     parts = []
     for i in range(1, len(base)):
@@ -52,7 +52,7 @@ def save_emails(emails):
         for email in emails:
             f.write(email + "\n")
 
-# ─── Telegram Handlers ──────────────────────────────────────────────────────
+# ─── Telegram Bot Handlers ─────────────────────────────────
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     msg = (
         "👋 *Welcome to DotMail Bot*\n\n"
@@ -80,15 +80,14 @@ async def download(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await update.message.reply_text("⚠️ *acc.txt is empty or missing.*", parse_mode="Markdown")
 
-# ─── Main Entrypoint ────────────────────────────────────────────────────────
+# ─── Entrypoint ────────────────────────────────────────────
 if __name__ == '__main__':
     threading.Thread(target=run_flask).start()
 
-    bot_app = ApplicationBuilder().token(TOKEN).build()
+    tg_app = ApplicationBuilder().token(TOKEN).build()
+    tg_app.add_handler(CommandHandler("start", start))
+    tg_app.add_handler(CommandHandler("generate", generate))
+    tg_app.add_handler(CommandHandler("clear", clear))
+    tg_app.add_handler(CommandHandler("download", download))
 
-    bot_app.add_handler(CommandHandler("start", start))
-    bot_app.add_handler(CommandHandler("generate", generate))
-    bot_app.add_handler(CommandHandler("clear", clear))
-    bot_app.add_handler(CommandHandler("download", download))
-
-    bot_app.run_polling()
+    tg_app.run_polling()
